@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_covid/main.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:country_picker/country_picker.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,77 +14,51 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Stack(
-        children: [buildFloatingSearchBar()],
-      ),
-    );
-  }
-
-  Widget buildFloatingSearchBar() {
-    final isPortrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
-
-    return FloatingSearchBar(
-      hint: 'Search a country...',
-      scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-      transitionDuration: const Duration(milliseconds: 800),
-      transitionCurve: Curves.easeInOut,
-      physics: const BouncingScrollPhysics(),
-      axisAlignment: isPortrait ? 0.0 : -1.0,
-      openAxisAlignment: 0.0,
-      width: isPortrait ? 600 : 500,
-      debounceDelay: const Duration(milliseconds: 500),
-      onQueryChanged: (query) {
-        print(query);
-        // Call your model, bloc, controller here.
-      },
-      // Specify a custom transition to be used for
-      // animating between opened and closed stated.
-      transition: CircularFloatingSearchBarTransition(),
-      actions: [
-        FloatingSearchBarAction(
-          showIfOpened: false,
-          child: CircularButton(
-            icon: const Icon(Icons.place),
-            onPressed: () {
-              showCountryPicker(
-                searchAutofocus: false,
-                context: context,
-                showPhoneCode:
-                    false, // optional. Shows phone code before the country name.
-                onSelect: (Country country) {
-                  print('Select country: ${country.displayName}');
-                },
-              );
-            },
-          ),
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text(widget.title),
         ),
-        FloatingSearchBarAction.searchToClear(
-          showIfClosed: false,
-        ),
-      ],
-      builder: (context, transition) {
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Material(
-            color: Colors.white,
-            elevation: 4.0,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: Colors.accents.map((color) {
-                return Container(height: 112, color: color);
-              }).toList(),
+        body: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+          Spacer(flex: 2),
+          Center(
+            child: Image.asset(
+              "assets/logo_small.png",
+              width: MediaQuery.of(context).size.width / 2,
             ),
           ),
-        );
-      },
-    );
+          Spacer(
+            flex: 2,
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 10, right: 30, left: 30, bottom: 30),
+            decoration: BoxDecoration(border: Border.all(color: Colors.green)),
+            margin: EdgeInsets.all(10),
+            child: Text(
+              countries[0].toString(),
+              style: GoogleFonts.montserrat(
+                fontSize: 20,
+                height: 3,
+              ),
+            ),
+          ),
+          Spacer(),
+          GestureDetector(
+            onTap: () {
+              showCountryPicker(
+                  context: context, onSelect: (Country country) {});
+            },
+            child: Center(
+              child: Image.asset(
+                "assets/search.png",
+                width: MediaQuery.of(context).size.width / 4,
+                height: MediaQuery.of(context).size.height / 4,
+              ),
+            ),
+          ),
+          Spacer()
+        ]));
   }
 }

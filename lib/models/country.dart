@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class Country {
   late dynamic name;
   late dynamic cases;
@@ -19,4 +21,17 @@ class Country {
         active = json['active'],
         critical = json['critical'],
         deathsPerOneMillion = json['deathsPerOneMillion'];
+
+  @override
+  String toString() {
+    return "Total cases : " +
+        NumberFormat.decimalPattern().format(cases) +
+        "\nTotal deaths : " +
+        NumberFormat.decimalPattern().format(deaths) +
+        (" (0,06%)") +
+        "\nToday cases : " +
+        NumberFormat.decimalPattern().format(todayCases) +
+        "\nToday deaths : " +
+        NumberFormat.decimalPattern().format(todayDeaths);
+  }
 }
