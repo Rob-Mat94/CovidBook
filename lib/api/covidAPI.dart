@@ -13,11 +13,11 @@ class CovidAPI {
     var global = jsonDecode(response.body);
     print(global);
     for (int i = 0; i < global.length; i++) {
-      countries.add(Country.fromJson(global[i]));
+      countries.add(CountryModel.fromJson(global[i]));
     }
   }
 
-  static Future<Country> getCountryInfo(String coutryName) async {
+  static Future<CountryModel> getCountryInfo(String coutryName) async {
     var response = await http.get(
         Uri.parse(
             "https://coronavirus-19-api.herokuapp.com/countries/$coutryName"),
@@ -26,6 +26,6 @@ class CovidAPI {
     var global = jsonDecode(response.body);
     print(global);
 
-    return Country.fromJson(global);
+    return CountryModel.fromJson(global);
   }
 }

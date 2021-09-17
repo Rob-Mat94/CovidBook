@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-class Country {
+class CountryModel {
   late dynamic name;
   late dynamic cases;
   late dynamic todayCases;
@@ -11,7 +11,7 @@ class Country {
   late dynamic critical;
   late dynamic deathsPerOneMillion;
 
-  Country.fromJson(Map<String, dynamic> json)
+  CountryModel.fromJson(Map<String, dynamic> json)
       : name = json['country'],
         cases = json['cases'],
         todayCases = json['todayCases'],
