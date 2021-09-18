@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_covid/models/country.dart';
 
 class CountryUI extends StatefulWidget {
@@ -19,11 +20,60 @@ class CountryUI extends StatefulWidget {
 
 class CountryUIState extends State<CountryUI> {
   Widget buildTodayPanel(BuildContext context) {
-    return Container();
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.green, width: 2),
+      ),
+      padding: EdgeInsets.all(30),
+      margin: EdgeInsets.all(25),
+      child: Column(
+        children: [
+          Text(
+            "Today",
+            style: GoogleFonts.montserrat(fontSize: 25),
+          ),
+          SizedBox(height: 20),
+          Row(
+            children: [
+              Spacer(),
+              Text(widget._country.todayCases.toString() + " case(s)",
+                  style: GoogleFonts.montserrat(fontSize: 15)),
+              Spacer(),
+              FaIcon(FontAwesomeIcons.peopleArrows,
+                  color: Colors.green, size: 30),
+              Spacer(),
+            ],
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: [
+              Spacer(),
+              Text(
+                widget._country.todayDeaths.toString() + " death(s)",
+                style: GoogleFonts.montserrat(fontSize: 15),
+              ),
+              Spacer(),
+              FaIcon(
+                FontAwesomeIcons.skullCrossbones,
+                color: Colors.green,
+                size: 30,
+              ),
+              Spacer(),
+            ],
+          )
+        ],
+      ),
+    );
   }
 
   Widget buildGlobalPabel(BuildContext context) {
-    return Container();
+    return ElevatedButton.icon(
+        style: ButtonStyle(),
+        onPressed: () {},
+        icon: FaIcon(FontAwesomeIcons.infoCircle),
+        label: Text("More Informations"));
   }
 
   @override
@@ -46,15 +96,25 @@ class CountryUIState extends State<CountryUI> {
             ],
           )),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Spacer(),
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 14,
+          ),
           Center(
               child: Card(
             elevation: 5,
             child: Image.network(
                 "https://flagcdn.com/w320/" + widget._code + ".png"),
           )),
-          Spacer()
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 23,
+          ),
+          buildTodayPanel(context),
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 12,
+          ),
+          buildGlobalPabel(context)
         ],
       ),
     );
