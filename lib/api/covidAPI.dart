@@ -18,6 +18,12 @@ class CovidAPI {
   }
 
   static Future<CountryModel> getCountryInfo(String coutryName) async {
+    if (coutryName == "United States") {
+      coutryName = "USA";
+    }
+    if (coutryName == "United Kingdom") {
+      coutryName = "UK";
+    }
     var response = await http.get(
         Uri.parse(
             "https://coronavirus-19-api.herokuapp.com/countries/$coutryName"),

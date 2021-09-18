@@ -70,10 +70,18 @@ class CountryUIState extends State<CountryUI> {
 
   Widget buildGlobalPabel(BuildContext context) {
     return ElevatedButton.icon(
-        style: ButtonStyle(),
+        style: ElevatedButton.styleFrom(
+            elevation: 5,
+            shadowColor: Colors.grey,
+            onSurface: Colors.grey,
+            enableFeedback: true,
+            fixedSize: Size(200, 50)),
         onPressed: () {},
         icon: FaIcon(FontAwesomeIcons.infoCircle),
-        label: Text("More Informations"));
+        label: Text(
+          "More Informations",
+          style: GoogleFonts.montserrat(),
+        ));
   }
 
   @override
