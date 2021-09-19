@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:my_covid/models/country.dart';
 
 class CountryUI extends StatefulWidget {
@@ -62,6 +63,16 @@ class CountryUIState extends State<CountryUI> {
               ),
               Spacer(),
             ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            "(Day's information is usually available on the evening)",
+            style: GoogleFonts.montserrat(
+                fontSize: 15,
+                color: Colors.lightGreen,
+                fontWeight: FontWeight.bold),
           )
         ],
       ),
@@ -76,12 +87,128 @@ class CountryUIState extends State<CountryUI> {
             onSurface: Colors.grey,
             enableFeedback: true,
             fixedSize: Size(200, 50)),
-        onPressed: () {},
+        onPressed: () {
+          globalAlertDialog(context);
+        },
         icon: FaIcon(FontAwesomeIcons.infoCircle),
         label: Text(
-          "More Informations",
+          "More information",
           style: GoogleFonts.montserrat(),
         ));
+  }
+
+  globalAlertDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext c) => AlertDialog(
+              insetPadding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.width / 2),
+              title: Container(
+                  padding: EdgeInsets.all(10),
+                  decoration:
+                      BoxDecoration(border: Border.all(color: Colors.green)),
+                  child: Row(
+                    children: [
+                      Text("Global information"),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      FaIcon(FontAwesomeIcons.infoCircle, color: Colors.green)
+                    ],
+                  )),
+              content: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                          NumberFormat.decimalPattern()
+                                  .format(widget._country.cases) +
+                              " cases",
+                          style: GoogleFonts.montserrat(fontSize: 20)),
+                      FaIcon(FontAwesomeIcons.peopleArrows,
+                          color: Colors.green, size: 30),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 50,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                          NumberFormat.decimalPattern()
+                                  .format(widget._country.deaths) +
+                              " deaths",
+                          style: GoogleFonts.montserrat(fontSize: 20)),
+                      FaIcon(FontAwesomeIcons.skullCrossbones,
+                          color: Colors.green, size: 30),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 50,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                          NumberFormat.decimalPattern()
+                                  .format(widget._country.critical) +
+                              " critical",
+                          style: GoogleFonts.montserrat(fontSize: 20)),
+                      FaIcon(FontAwesomeIcons.procedures,
+                          color: Colors.green, size: 30),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 50,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                          NumberFormat.decimalPattern()
+                                  .format(widget._country.recovered) +
+                              " recovered",
+                          style: GoogleFonts.montserrat(fontSize: 20)),
+                      FaIcon(FontAwesomeIcons.plusSquare,
+                          color: Colors.green, size: 30),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 50,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                          NumberFormat.decimalPattern()
+                                  .format(widget._country.active) +
+                              " active",
+                          style: GoogleFonts.montserrat(fontSize: 20)),
+                      FaIcon(FontAwesomeIcons.userCheck,
+                          color: Colors.green, size: 30),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 50,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                          NumberFormat.decimalPattern()
+                                  .format(widget._country.totalTests) +
+                              " tests",
+                          style: GoogleFonts.montserrat(fontSize: 20)),
+                      FaIcon(FontAwesomeIcons.vial,
+                          color: Colors.green, size: 30),
+                    ],
+                  ),
+                ],
+              ),
+            ));
   }
 
   @override

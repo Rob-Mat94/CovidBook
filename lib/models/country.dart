@@ -10,6 +10,7 @@ class CountryModel {
   late dynamic active;
   late dynamic critical;
   late dynamic deathsPerOneMillion;
+  late dynamic totalTests;
 
   CountryModel.fromJson(Map<String, dynamic> json)
       : name = json['country'],
@@ -20,6 +21,7 @@ class CountryModel {
         recovered = json['recovered'],
         active = json['active'],
         critical = json['critical'],
+        totalTests = json['totalTests'],
         deathsPerOneMillion = json['deathsPerOneMillion'];
 
   @override

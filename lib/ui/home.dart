@@ -39,8 +39,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text(widget.title),
-        ),
+            title: Text(widget.title),
+            leading: Center(child: FaIcon(FontAwesomeIcons.book))),
         body: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
           Spacer(flex: 1),
           Center(
